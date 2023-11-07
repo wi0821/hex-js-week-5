@@ -1,0 +1,42 @@
+.addTicket {
+    &-container {
+        color: $main-color;
+        border-radius: 12px;
+        box-shadow: 0px 3px 6px #00000029;
+        width: 920px;
+        display: flex;
+        justify-content: space-between;
+        flex-basis: 0;
+        margin: 120px 25%;
+        font-size: 16px;
+        line-height: 22px;
+        padding: 60px 95px;
+        margin-bottom: 100px;
+    }
+    &-img {
+        width: 350px;
+        img {
+            width: 350px;
+        }
+    }
+    &-form
+    {
+        width: 350px;
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 33px;
+            margin-bottom: 4px;
+            border-bottom: 3px solid $main-color;
+            margin-bottom: 29px;
+        }
+    }
+}
+
+
+.searchList-container {
+    background: #F7F7F7;
+    padding: 56px 20% 120px;
+    color: $list-text-color;
+    font-size: 16px;
+}
