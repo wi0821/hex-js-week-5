@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initaial-scale=1.0">
+	<title>Week5</title>
+	<script src="https://kit.fontawesome.com/ae717d84fc.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="./style/all.css">
+</head>
+
+	<body>
+		<section class="addTicket-container">
+			<div class="addTicket-img">
+				<img src="./images/main_img.png" alt="main_img">
+				<img src="./images/logo.png" alt="logo">
+			</div>
+
+			<div class="addTicket-form">
+				<h2><i class="fa-solid fa-plus"></i> 新增旅遊套票</h2>
+
+				<div class="form-input">
+					<label for="ticketName">套票名稱</label>
+					<input type="text" id="ticketName" name="套票名稱" placeholder="請填寫套票名稱">
+				</div>
+
+				<div class="form-input">
+					<label for="imageURL">圖片網址</label>
+					<input type="text" id="imageURL" name="圖片網址" placeholder="請填寫圖片網址">
+				</div>
+
+				<div class="form-input">
+					<label for="locList">景點地區</label>
+					<select id="locList" name="景點地區">
+						<option value="" disabled selected hidden>請選擇景點地區</option>
+						<option value="台北">台北</option>
+						<option value="台中">台中</option>
+						<option value="高雄">高雄</option>
+					</select>
+				</div>
+
+				<div class="form-input">
+					<label for="ticketPrice">套票金額</label>
+					<input type="number" id="ticketPrice" name="套票金額" placeholder="請填寫套票金額">
+				</div>
+
+				<div class="form-input">
+					<label for="ticketCount">套票組數</label>
+					<input type="number" id="ticketCount" name="套票組數" placeholder="請填寫套票組數">
+				</div>
+
+				<div class="form-input">
+					<label for="ticketRates">套票星級</label>
+					<input type="number" id="ticketRates" name="套票星級" min="1" max="10" placeholder="請填寫套票星級" required>
+				</div>
+
+				<div class="form-input">
+					<label for="ticketSpecText">套票描述</label>
+					<textarea name="套票描述" placeholder="請填寫套票描述（限 100 字）" id="ticketSpecText" maxlength="100" cols="30" rows="6"></textarea>
+				</div>
+
+				<input class="addTicket-form-btn" type="button" id="btnAddTicket" name="新增套票" value="新增套票">
+			</div>
+		</section>
+
+		<section class="searchList-container">
+				<div class="searchList-selector">
+					<select id="searchList" name="地區搜尋">
+						<option value="" disabled selected hidden>地區搜尋</option>
+						<option value="all">全部地區</option>
+						<option value="台北">台北</option>
+						<option value="台中">台中</option>
+						<option value="高雄">高雄</option>
+					</select>
+					<p>本次搜尋共 <span>0</span> 筆資料</p>
+				</div>
+
+				<ul class="searchList-result">
+					<li class="searchList-result-card">
+						<div class="searchList-result-wrap">
+							<img src="./images/travel_1.png">
+							<span class="searchList-result-wrap-loc">台北</span>
+							<span class="searchList-result-wrap-rates">8.6</span>
+						</div>
+
+						<div class="searchList-result-content">
+							<div class="searchList-result-content-text">
+								<h3>綠島自由行套裝行程</h3>
+								<p>嚴選超高CP值綠島自由行套裝行程，多種綠島套裝組合，提供台東綠島來回船票、綠島環島機車、綠島民宿住宿，行程加贈『綠島浮潛體驗』以及『綠島生態導覽』，讓你用輕鬆的綠島套裝自由行，也能深度認識綠島在地文化。</p>
+							</div>
+
+							<div class="searchList-result-content-info">
+								<div class="searchList-result-content-info-stock">
+									<p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 8 組</span></p>
+								</div>
+
+								<div class="searchList-result-content-info-price">
+									<p>TWD</p><span>$1,280</span>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li class="searchList-result-card">
+						<div class="searchList-result-wrap">
+							<img src="./images/travel_2.png">
+							<span class="searchList-result-wrap-loc">台北</span>
+							<span class="searchList-result-wrap-rates">8.2</span>
+						</div>
+
+						<div class="searchList-result-content">
+							<div class="searchList-result-content-text">
+								<h3>清境高空觀景步道二日遊</h3>
+								<p>清境農場青青草原數十公頃碧草，餵食著數以百計的綿羊和牛群，中央山脈最高的北三段群峰形成一堵如帶的高牆，攔住清晨的薄霧山嵐，成就了從花蓮翻山而來的雲瀑在濁水溪谷積成雲海，這些景觀豐沛了清境觀景步道的風格，也涵養它無可取代的特色。</p>
+							</div>
+
+							<div class="searchList-result-content-info">
+								<div class="searchList-result-content-info-stock">
+									<p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 12 組</span></p>
+								</div>
+
+								<div class="searchList-result-content-info-price">
+									<p>TWD</p><span>$2,580</span>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li class="searchList-result-card">
+						<div class="searchList-result-wrap">
+							<img src="./images/travel_3.png">
+							<span class="searchList-result-wrap-loc">台中</span>
+							<span class="searchList-result-wrap-rates">9.2</span>
+						</div>
+
+						<div class="searchList-result-content">
+							<div class="searchList-result-content-text">
+								<h3>南庄度假村露營車二日遊</h3>
+								<p>南庄雲水豪華露營車，快來擁有最愜意的露營體驗吧！ 一泊一食，輕鬆享受露營車樂趣。 獨立衛浴與私人戶外露臺。 入住豪華露營車還能使用戶外SPA大眾湯，感受美人湯魅力。</p>
+							</div>
+
+							<div class="searchList-result-content-info">
+								<div class="searchList-result-content-info-stock">
+									<p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 2 組</span></p>
+								</div>
+
+								<div class="searchList-result-content-info-price">
+									<p>TWD</p><span>$2,480</span>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li class="searchList-result-card">
+						<div class="searchList-result-wrap">
+							<img src="./images/travel_4.png">
+							<span class="searchList-result-wrap-loc">台中</span>
+							<span class="searchList-result-wrap-rates">9.3</span>
+						</div>
+
+						<div class="searchList-result-content">
+							<div class="searchList-result-content-text">
+								<h3>山林悠遊雙人套票</h3>
+								<p>山林悠遊套票，結合南投清境高空步道、雙龍瀑布七彩吊橋、瑞龍瀑布園區之熱門景點，帶您飽覽南投瑰麗的自然環境，體驗變化無窮的地形景觀，喜歡挑戰高空的您一定不可錯過。 （含雙龍瀑布入場券 x2）</p>
+							</div>
+
+							<div class="searchList-result-content-info">
+								<div class="searchList-result-content-info-stock">
+									<p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>限時搶購</span></p>
+								</div>
+
+								<div class="searchList-result-content-info-price">
+									<p>TWD</p><span>$880</span>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li class="searchList-result-card">
+						<div class="searchList-result-wrap">
+							<img src="./images/travel_5.png">
+							<span class="searchList-result-wrap-loc">台中</span>
+							<span class="searchList-result-wrap-rates">8.2</span>
+						</div>
+
+						<div class="searchList-result-content">
+							<div class="searchList-result-content-text">
+								<h3>漁樂碼頭釣魚體驗套票</h3>
+								<p>台中全新親子景點寶熊漁樂碼頭，為知名釣具公司「OKUMA」所創立的觀光工廠。一樓藍白希臘漁村風商店街免費參觀。二樓釣魚故事館則設立全台唯一虛擬釣場，透過導覽讓你知道如何釣魚、魚餌怎麼區分，寓教於樂的台中景點！</p>
+							</div>
+
+							<div class="searchList-result-content-info">
+								<div class="searchList-result-content-info-stock">
+									<p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 5 組</span></p>
+								</div>
+
+								<div class="searchList-result-content-info-price">
+									<p>TWD</p><span>$1,280</span>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li class="searchList-result-card">
+						<div class="searchList-result-wrap">
+							<img src="./images/travel_6.png">
+							<span class="searchList-result-wrap-loc">高雄</span>
+							<span class="searchList-result-wrap-rates">8.6</span>
+						</div>
+
+						<div class="searchList-result-content">
+							<div class="searchList-result-content-text">
+								<h3>熊森公園親子二日遊套票</h3>
+								<p>來自日本最受歡迎的兒童遊樂園《 BearSon Park 熊森公園》於全世界有800多家據點，在全世界、日本及台灣，很多小孩的童年都在遊戲愛樂園裡一同成長，提供兒童一個最富教育性及娛樂性的休憩遊樂天地！</p>
+							</div>
+
+							<div class="searchList-result-content-info">
+								<div class="searchList-result-content-info-stock">
+									<p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 3 組</span></p>
+								</div>
+
+								<div class="searchList-result-content-info-price">
+									<p>TWD</p><span>$2,480</span>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+		</section>
+
+		<script type="text/javascript" src="./js/app.js"></script>
+	</body>
+
+</html>
