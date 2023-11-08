@@ -29,23 +29,23 @@ let data = [
       "price": 1765,
       "rate": 7
     },
-    {
-      "id": 3,
-      "name": "台中谷關溫泉會2日",
-      "imgUrl": "https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-      "area": "台中",
-      "description": "全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。",
-      "group": 20,
-      "price": 1765,
-      "rate": 7
-    }
   ];
 
 const ticketCards = document.querySelector(".searchList-result");
 const searchList = document.querySelector("#searchList");
 const searchResultCount = document.querySelector(".searchList-selector p span");
 
-const searchListTag = objItem => `<li class="searchList-result-card"><div class="searchList-result-wrap"><img src="${objItem["imgUrl"]}"><span class="searchList-result-wrap-loc">${objItem["area"]}</span><span class="searchList-result-wrap-rates">${objItem["rate"].toFixed(1)}</span></div><div class="searchList-result-content"><div class="searchList-result-content-text"><h3>${objItem["name"]}</h3><p>${objItem["description"]}</p></div><div class="searchList-result-content-info"><div class="searchList-result-content-info-stock"><p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 ${objItem["group"]} 組</span></p></div><div class="searchList-result-content-info-price"><p>TWD</p><span>$${objItem["price"]}</span></div></div></div></li>`;
+const ticketName = document.querySelector("#ticketName");
+const imageURL = document.querySelector("#imageURL");
+const locList = document.querySelector("#locList");
+const ticketPrice = document.querySelector("#ticketPrice");
+const ticketCount = document.querySelector("#ticketCount");
+const ticketRates = document.querySelector("#ticketRates");
+const ticketSpecText = document.querySelector("#ticketSpecText");
+
+const btnAddTicket = document.querySelector("#btnAddTicket");
+
+const searchListTag = objItem => `<li class="searchList-result-card"><div class="searchList-result-wrap"><img src="${objItem["imgUrl"]}"><span class="searchList-result-wrap-loc">${objItem["area"]}</span><span class="searchList-result-wrap-rates">${objItem["rate"]}</span></div><div class="searchList-result-content"><div class="searchList-result-content-text"><h3>${objItem["name"]}</h3><p>${objItem["description"]}</p></div><div class="searchList-result-content-info"><div class="searchList-result-content-info-stock"><p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 ${objItem["group"]} 組</span></p></div><div class="searchList-result-content-info-price"><p>TWD</p><span>$${objItem["price"]}</span></div></div></div></li>`;
 
 init ();
 
@@ -60,7 +60,21 @@ function init () {
     searchResultCount.innerText = totalCount;
 }
 
+btnAddTicket.addEventListener("click", (e) => {
+  let obj = {};
 
+  obj["id"] = data.length ;
+  obj["name"] = ticketName.value;
+  obj["imgUrl"] = imageURL.value;
+  obj["area"] = locList.value;
+  obj["description"] = ticketSpecText.value;
+  obj["group"] =  parseInt(ticketCount.value);
+  obj["price"] = parseInt(ticketPrice.value);
+  obj["rate"] =  parseFloat(ticketRates.value).toFixed(1);
+
+  data.push(obj);
+  init ();
+})
 
 searchList.addEventListener("change", (e) => {
   let content = "";

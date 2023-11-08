@@ -16,12 +16,12 @@
 				<img src="./images/logo.png" alt="logo">
 			</div>
 
-			<div class="addTicket-form">
+			<form class="addTicket-form">
 				<h2><i class="fa-solid fa-plus"></i> 新增旅遊套票</h2>
 
 				<div class="form-input">
 					<label for="ticketName">套票名稱</label>
-					<input type="text" id="ticketName" name="套票名稱" placeholder="請填寫套票名稱">
+					<input type="text" id="ticketName" name="套票名稱" placeholder="請填寫套票名稱" required>
 				</div>
 
 				<div class="form-input">
@@ -31,7 +31,7 @@
 
 				<div class="form-input">
 					<label for="locList">景點地區</label>
-					<select id="locList" name="景點地區">
+					<select id="locList" name="景點地區" required>
 						<option value="" disabled selected hidden>請選擇景點地區</option>
 						<option value="台北">台北</option>
 						<option value="台中">台中</option>
@@ -41,12 +41,12 @@
 
 				<div class="form-input">
 					<label for="ticketPrice">套票金額</label>
-					<input type="number" id="ticketPrice" name="套票金額" placeholder="請填寫套票金額">
+					<input type="number" id="ticketPrice" name="套票金額" placeholder="請填寫套票金額" required>
 				</div>
 
 				<div class="form-input">
 					<label for="ticketCount">套票組數</label>
-					<input type="number" id="ticketCount" name="套票組數" placeholder="請填寫套票組數">
+					<input type="number" id="ticketCount" name="套票組數" placeholder="請填寫套票組數" required>
 				</div>
 
 				<div class="form-input">
@@ -56,11 +56,11 @@
 
 				<div class="form-input">
 					<label for="ticketSpecText">套票描述</label>
-					<textarea name="套票描述" placeholder="請填寫套票描述（限 100 字）" id="ticketSpecText" maxlength="100" cols="30" rows="6"></textarea>
+					<textarea name="套票描述" placeholder="請填寫套票描述（限 100 字）" id="ticketSpecText" maxlength="100" cols="30" rows="6" required></textarea>
 				</div>
 
 				<input class="addTicket-form-btn" type="button" id="btnAddTicket" name="新增套票" value="新增套票">
-			</div>
+			</form>
 		</section>
 
 		<section class="searchList-container">
