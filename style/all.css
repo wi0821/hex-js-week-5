@@ -138,6 +138,9 @@ html {
   margin-left: 31px;
   caret-color: #00807E;
 }
+.form-input select {
+  padding-left: 8px;
+}
 .form-input input:focus, .form-input textarea:focus {
   border: 1px solid #00807E;
 }

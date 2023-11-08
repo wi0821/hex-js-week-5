@@ -7,7 +7,7 @@ let data = [
       "description": "賞櫻花最佳去處。肥宅不得不去的超讚景點！",
       "group": 87,
       "price": 1400,
-      "rate": 10
+      "rate": 10.0
     },
     {
       "id": 1,
@@ -17,7 +17,7 @@ let data = [
       "description": "乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感",
       "group": 99,
       "price": 240,
-      "rate": 2
+      "rate": 2.0
     },
     {
       "id": 2,
@@ -27,7 +27,7 @@ let data = [
       "description": "全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。",
       "group": 20,
       "price": 1765,
-      "rate": 7
+      "rate": 7.0
     },
   ];
 
@@ -58,9 +58,49 @@ function init () {
       })
     ticketCards.innerHTML = str;
     searchResultCount.innerText = totalCount;
+
+    ticketName.value = "";
+    imageURL.value = "";
+    locList.value = "";
+    ticketSpecText.value = "";
+    ticketCount.value = "";
+    ticketPrice.value = "";
+    ticketRates.value = "";
+}
+
+function isEmpty(item) {
+  let trimItem = item.trim();
+  if(trimItem == null || trimItem === "") {
+    return true;
+  }
+}
+
+function rateRange(rate) {
+  let rateNum = parseFloat(rate);
+  if(rateNum <= 1 || rateNum > 10) {
+    return true;
+  }
 }
 
 btnAddTicket.addEventListener("click", (e) => {
+  if(isEmpty(ticketName.value)) {
+    return alert("請填寫套票名稱");
+  } else if(isEmpty(imageURL.value)) {
+    return alert("請填寫圖片網址");
+  } else if(isEmpty(locList.value)) {
+    return alert("請選擇景點地區");
+  } else if(isEmpty(ticketPrice.value)) {
+    return alert("請填寫套票金額");
+  } else if(isEmpty(ticketCount.value)) {
+    return alert("請填寫套票組數");
+  } else if(isEmpty(ticketRates.value)) {
+    return alert("請填寫套票星級");
+  } else if(rateRange(ticketRates.value)) {
+    return alert("請輸入正確的套票星級範圍 (1~10)");
+  } else if(isEmpty(ticketSpecText.value)) {
+    return alert("請填寫套票描述");
+  }
+
   let obj = {};
 
   obj["id"] = data.length ;
@@ -73,6 +113,9 @@ btnAddTicket.addEventListener("click", (e) => {
   obj["rate"] =  parseFloat(ticketRates.value).toFixed(1);
 
   data.push(obj);
+
+  alert("新增成功");
+
   init ();
 })
 
