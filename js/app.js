@@ -1,35 +1,56 @@
-let data = [
+let localData = [
     {
-      "id": 0,
-      "name": "肥宅心碎賞櫻3日",
-      "imgUrl": "https://images.unsplash.com/photo-1522383225653-ed111181a951?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1655&q=80",
-      "area": "高雄",
-      "description": "賞櫻花最佳去處。肥宅不得不去的超讚景點！",
-      "group": 87,
-      "price": 1400,
-      "rate": 10.0
+      id: 0,
+      name: "00000肥宅心碎賞櫻3日",
+      imgUrl: "https://images.unsplash.com/photo-1522383225653-ed111181a951?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1655&q=80",
+      area: "高雄",
+      description: "賞櫻花最佳去處。肥宅不得不去的超讚景點！",
+      group: 87,
+      price: 1400,
+      rate: 10
     },
     {
-      "id": 1,
-      "name": "貓空纜車雙程票",
-      "imgUrl": "https://images.unsplash.com/photo-1501393152198-34b240415948?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-      "area": "台北",
-      "description": "乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感",
-      "group": 99,
-      "price": 240,
-      "rate": 2.0
+      id: 1,
+      name: "貓空纜車雙程票",
+      imgUrl: "https://images.unsplash.com/photo-1501393152198-34b240415948?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+      area: "台北",
+      description: "乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感",
+      group: 99,
+      price: 240,
+      rate: 2
     },
     {
-      "id": 2,
-      "name": "台中谷關溫泉會1日",
-      "imgUrl": "https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
-      "area": "台中",
-      "description": "全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。",
-      "group": 20,
-      "price": 1765,
-      "rate": 7.0
-    },
+      id: 2,
+      name: "台中谷關溫泉會1日",
+      imgUrl: "https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
+      area: "台中",
+      description: "全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。",
+      group: 20,
+      price: 1765,
+      rate: 7
+    }
   ];
+
+  axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
+    .then(res => {
+      localData = res.data.data;
+      init ();
+    })
+    .catch(err => {
+      console.log(err);
+      localData = [
+        {
+          "id": 0,
+          "name": "同步錯誤",
+          "imgUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "area": "同步錯誤",
+          "description": "伺服器同步錯誤",
+          "group" :0,
+          "price": 0,
+          "rate": 0
+        },]
+      init ();
+    })
 
 const ticketCards = document.querySelector(".searchList-result");
 const searchList = document.querySelector("#searchList");
@@ -52,7 +73,7 @@ init ();
 function init () {
     let str = "";
     let totalCount = 0;
-    data.forEach((item,index,arr) =>{
+    localData.forEach((item,index,arr) =>{
         str +=  searchListTag(item);
         totalCount = arr.length;
       })
@@ -103,7 +124,7 @@ btnAddTicket.addEventListener("click", (e) => {
 
   let obj = {};
 
-  obj["id"] = data.length ;
+  obj["id"] = localData.length ;
   obj["name"] = ticketName.value;
   obj["imgUrl"] = imageURL.value;
   obj["area"] = locList.value;
@@ -112,7 +133,7 @@ btnAddTicket.addEventListener("click", (e) => {
   obj["price"] = parseInt(ticketPrice.value);
   obj["rate"] =  parseFloat(ticketRates.value).toFixed(1);
 
-  data.push(obj);
+  localData.push(obj);
 
   alert("新增成功");
 
@@ -120,12 +141,13 @@ btnAddTicket.addEventListener("click", (e) => {
 })
 
 searchList.addEventListener("change", (e) => {
+  init ();
+
   let content = "";
   let totalCount = 0;
-  data.forEach((item,index,arr) => {
+  localData.forEach((item,index,arr) => {
     if(e.target.value === item.area || e.target.value === "all") {
       content += searchListTag(item);
-      console.log(index)
       totalCount++;
     } else {
       return;
@@ -133,4 +155,5 @@ searchList.addEventListener("change", (e) => {
   })
   ticketCards.innerHTML = content;
   searchResultCount.innerText = totalCount;
+
 })
