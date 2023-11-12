@@ -143,6 +143,7 @@ btnAddTicket.addEventListener("click", (e) => {
 searchList.addEventListener("change", (e) => {
   init ();
 
+
   let content = "";
   let totalCount = 0;
   localData.forEach((item,index,arr) => {
