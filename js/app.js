@@ -25,6 +25,7 @@ const ticketCards = document.querySelector(".searchList-result");
 const searchList = document.querySelector("#searchList");
 const searchResultCount = document.querySelector(".searchList-selector p span");
 
+const ticketForm = document.querySelector(".addTicket-form");
 const ticketName = document.querySelector("#ticketName");
 const imageURL = document.querySelector("#imageURL");
 const locList = document.querySelector("#locList");
@@ -41,21 +42,13 @@ init ();
 
 function init () {
     let str = "";
-    let totalCount = 0;
-    localData.forEach((item,index,arr) =>{
+    localData.forEach((item) =>{
         str +=  searchListTag(item);
-        totalCount = arr.length;
       })
     ticketCards.innerHTML = str;
-    searchResultCount.innerText = totalCount;
+    searchResultCount.innerText = localData.length;
 
-    ticketName.value = "";
-    imageURL.value = "";
-    locList.value = "";
-    ticketSpecText.value = "";
-    ticketCount.value = "";
-    ticketPrice.value = "";
-    ticketRates.value = "";
+    ticketForm.reset();
 }
 
 function isEmpty(item) {
@@ -67,12 +60,15 @@ function isEmpty(item) {
 
 function rateRange(rate) {
   let rateNum = parseFloat(rate);
-  if(rateNum <= 1 || rateNum > 10) {
+  if(rateNum < 1 || rateNum > 10) {
     return true;
   }
 }
 
 btnAddTicket.addEventListener("click", (e) => {
+  console.log(e);
+  e.preventDefault(); // 防止送出後跳窗
+
   if(isEmpty(ticketName.value)) {
     return alert("請填寫套票名稱");
   } else if(isEmpty(imageURL.value)) {
@@ -100,18 +96,18 @@ btnAddTicket.addEventListener("click", (e) => {
   obj["description"] = ticketSpecText.value;
   obj["group"] =  parseInt(ticketCount.value);
   obj["price"] = parseInt(ticketPrice.value);
-  obj["rate"] =  parseFloat(ticketRates.value).toFixed(1);
+  obj["rate"] =  parseFloat(ticketRates.value);
 
   localData.push(obj);
 
   alert("新增成功");
 
   init ();
+  searchList.selectedIndex = 1;
 })
 
 searchList.addEventListener("change", (e) => {
   init ();
-
 
   let content = "";
   let totalCount = 0;
@@ -125,5 +121,4 @@ searchList.addEventListener("change", (e) => {
   })
   ticketCards.innerHTML = content;
   searchResultCount.innerText = totalCount;
-
 })

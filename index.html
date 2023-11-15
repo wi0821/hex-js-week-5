@@ -17,7 +17,7 @@
 				<img src="./images/logo.png" alt="logo">
 			</div>
 
-			<div class="addTicket-form">
+			<form class="addTicket-form">
 				<h2><i class="fa-solid fa-plus"></i> 新增旅遊套票</h2>
 
 				<div class="form-input">
@@ -27,7 +27,7 @@
 
 				<div class="form-input">
 					<label for="imageURL">圖片網址</label>
-					<input type="text" id="imageURL" name="圖片網址" placeholder="請填寫圖片網址">
+					<input type="text" id="imageURL" name="圖片網址" placeholder="請填寫圖片網址" required>
 				</div>
 
 				<div class="form-input">
@@ -60,8 +60,8 @@
 					<textarea name="套票描述" placeholder="請填寫套票描述（限 100 字）" id="ticketSpecText" maxlength="100" cols="30" rows="6" required></textarea>
 				</div>
 
-				<input class="addTicket-form-btn" type="button" id="btnAddTicket" name="新增套票" value="新增套票">
-			</div>
+				<input class="addTicket-form-btn" type="submit" id="btnAddTicket" name="新增套票" value="新增套票">
+			</form>
 		</section>
 
 		<section class="searchList-container">
@@ -76,7 +76,7 @@
 					<p>本次搜尋共 <span>0</span> 筆資料</p>
 				</div>
 
-				<ul class="searchList-result">
+				<ul class="searchList-result"><!--
 					<li class="searchList-result-card">
 						<div class="searchList-result-wrap">
 							<img src="./images/travel_1.png">
@@ -225,7 +225,7 @@
 								</div>
 							</div>
 						</div>
-					</li>
+					</li> -->
 				</ul>
 		</section>
 
