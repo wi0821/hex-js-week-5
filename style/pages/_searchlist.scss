@@ -87,6 +87,15 @@
                     line-height: 24px;
                     height: 180px;
                 }
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                    &:hover {
+                        cursor: pointer;
+                        color: #6CA5FF;
+                        transition: .2s;
+                    }
+                }
             }
 
             &-info {

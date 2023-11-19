@@ -264,6 +264,15 @@ html {
   line-height: 24px;
   height: 180px;
 }
+.searchList-result-content-text a {
+  text-decoration: none;
+  color: inherit;
+}
+.searchList-result-content-text a:hover {
+  cursor: pointer;
+  color: #6CA5FF;
+  transition: 0.2s;
+}
 .searchList-result-content-info {
   color: #00807E;
   padding: 0 22px 14px;

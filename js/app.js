@@ -15,7 +15,7 @@ const ticketSpecText = document.querySelector("#ticketSpecText");
 
 const btnAddTicket = document.querySelector("#btnAddTicket");
 
-const searchListTag = objItem => `<li class="searchList-result-card"><div class="searchList-result-wrap"><img src="${objItem["imgUrl"]}"><span class="searchList-result-wrap-loc">${objItem["area"]}</span><span class="searchList-result-wrap-rates">${objItem["rate"]}</span></div><div class="searchList-result-content"><div class="searchList-result-content-text"><h3>${objItem["name"]}</h3><p>${objItem["description"]}</p></div><div class="searchList-result-content-info"><div class="searchList-result-content-info-stock"><p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 ${objItem["group"]} 組</span></p></div><div class="searchList-result-content-info-price"><p>TWD</p><span>$${objItem["price"]}</span></div></div></div></li>`;
+const searchListTag = objItem => `<li class="searchList-result-card"><div class="searchList-result-wrap"><img src="${objItem["imgUrl"]}"><span class="searchList-result-wrap-loc">${objItem["area"]}</span><span class="searchList-result-wrap-rates">${objItem["rate"]}</span></div><div class="searchList-result-content"><div class="searchList-result-content-text"><h3><a href="#">${objItem["name"]}</a></h3><p>${objItem["description"]}</p></div><div class="searchList-result-content-info"><div class="searchList-result-content-info-stock"><p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 ${objItem["group"]} 組</span></p></div><div class="searchList-result-content-info-price"><p>TWD</p><span>$${objItem["price"]}</span></div></div></div></li>`;
 
 init();
 
@@ -180,3 +180,79 @@ searchList.addEventListener("change", (e) => {
   ticketCards.innerHTML = content;
   searchResultCount.innerText = totalCount;
 })
+
+
+
+const chartDom = document.querySelector(".main");
+const myChart = echarts.init(chartDom, null, { renderer: 'canvas' });
+const option = {
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      color: [
+          '#feca57',
+          '#ff6b6b',
+          '#48dbfb',
+          '#1dd1a1',
+          '#5f27cd',
+          '#576574'
+      ],
+      radius: ['45%', '70%'],
+      avoidLabelOverlap: true,
+      label: {
+        show: true,
+        position: 'center',
+        fontSize: 24,
+        fontWeight: 'bold'
+      },
+      emphasis: {
+        label: {
+          show: false,
+          fontSize: 40,
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: 1048, name: 'Search Engine' },
+        { value: 735, name: 'Direct' },
+        { value: 580, name: 'Email' },
+        { value: 484, name: 'Union Ads' },
+        { value: 300, name: 'Video Ads' }
+      ]
+    }
+  ]
+};
+
+
+const testData = [{name: "小明", age: 25}, {name:"小王", age:30}, {name:"小李", age:40}, {name:"小陳", age:15}]
+let newArr = [];
+
+function getData(array) {
+
+  testData.forEach((item) => {
+    let obj = {};
+    obj.value = item.age;
+    obj.name = item.name;
+    newArr.push(obj);
+  });
+
+}
+
+getData(testData);
+
+option.series[0].data = newArr;
+
+myChart.setOption(option);
+// myChart.showLoading();
+console.log(option.series[0].data);
