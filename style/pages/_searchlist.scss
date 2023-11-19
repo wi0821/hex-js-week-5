@@ -3,7 +3,7 @@
         display: flex;
         margin-bottom: 60px;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: space-between;
         margin-left: 8%;
         select {
             color: #000;
@@ -12,6 +12,10 @@
             font-size: 16px;
             margin-right: 30px;
         }
+    }
+
+    &-chart {
+        width: 250px;
     }
 
     &-result {

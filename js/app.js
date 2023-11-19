@@ -1,26 +1,5 @@
 let localData = [];
 
-  axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
-    .then(res => {
-      localData = res["data"]["data"];
-      init ();
-    })
-    .catch(err => {
-      console.log(err);
-      localData = [
-        {
-          "id": 0,
-          "name": "同步錯誤",
-          "imgUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "area": "同步錯誤",
-          "description": "伺服器同步錯誤",
-          "group" :0,
-          "price": 0,
-          "rate": 0
-        },]
-      init ();
-    })
-
 const ticketCards = document.querySelector(".searchList-result");
 const searchList = document.querySelector("#searchList");
 const searchResultCount = document.querySelector(".searchList-selector p span");
@@ -38,17 +17,94 @@ const btnAddTicket = document.querySelector("#btnAddTicket");
 
 const searchListTag = objItem => `<li class="searchList-result-card"><div class="searchList-result-wrap"><img src="${objItem["imgUrl"]}"><span class="searchList-result-wrap-loc">${objItem["area"]}</span><span class="searchList-result-wrap-rates">${objItem["rate"]}</span></div><div class="searchList-result-content"><div class="searchList-result-content-text"><h3>${objItem["name"]}</h3><p>${objItem["description"]}</p></div><div class="searchList-result-content-info"><div class="searchList-result-content-info-stock"><p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 ${objItem["group"]} 組</span></p></div><div class="searchList-result-content-info-price"><p>TWD</p><span>$${objItem["price"]}</span></div></div></div></li>`;
 
-init ();
+init();
 
-function init () {
+function init() {
+  axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
+  .then(res => {
+    localData = res["data"]["data"];
+    renderList();
+    renderChart();
+  })
+  .catch(err => {
+    console.log(err);
+    localData = [
+      {
+        "id": 0,
+        "name": "同步錯誤",
+        "imgUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "area": "同步錯誤",
+        "description": "伺服器同步錯誤",
+        "group" :0,
+        "price": 0,
+        "rate": 0
+      },]
+      renderList();
+      renderChart();
+  })
+}
+
+function renderList() {
     let str = "";
     localData.forEach((item) =>{
         str +=  searchListTag(item);
       })
     ticketCards.innerHTML = str;
     searchResultCount.innerText = localData.length;
+}
 
-    ticketForm.reset();
+function renderChart() {
+  let tempObj = {};
+
+  localData.forEach(item => {
+
+    let area = item["area"];
+
+    if (tempObj[area]) {
+        tempObj[area]++;
+    } else {
+        tempObj[area] = 1;
+    }
+
+  })
+  console.log(tempObj);
+
+  let tempData = Object.keys(tempObj);
+  console.log(tempData)
+
+  let newAry = [];
+
+  tempData.forEach(item => {
+    let tempAry = [];
+    tempAry.push(item);
+    tempAry.push(tempObj[item]);
+    console.log(tempAry);
+    newAry.push(tempAry);
+  })
+  console.log(newAry);
+
+  const chart = c3.generate({
+    bindto: '.searchList-chart',
+    data: {
+        mimeType: 'json',
+        type : 'donut',
+        columns: newAry,
+        colors: {
+          "台北": "#26C0C7",
+          "台中": "#5151D3",
+          "高雄": "#E68618",
+        },
+        onclick: function (d, i) { console.log("onclick", d, i); },
+    },
+    donut: {
+      label: {
+        show: false,
+      },
+      width: 24,
+      title: '套票地區比重',
+    }
+  });
+
 }
 
 function isEmpty(item) {
@@ -101,17 +157,19 @@ btnAddTicket.addEventListener("click", (e) => {
   localData.push(obj);
 
   alert("新增成功");
+  ticketForm.reset();
 
-  init ();
-  searchList.selectedIndex = 1;
+  renderList();
+  renderChart();
+  searchList.selectedIndex = 1; //重設選單為全部地區
 })
 
 searchList.addEventListener("change", (e) => {
-  init ();
+  renderList();
 
   let content = "";
   let totalCount = 0;
-  localData.forEach((item,index,arr) => {
+  localData.forEach((item) => {
     if(e.target.value === item.area || e.target.value === "all") {
       content += searchListTag(item);
       totalCount++;
