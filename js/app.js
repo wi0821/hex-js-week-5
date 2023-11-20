@@ -59,14 +59,6 @@ const searchListChartOption = {
       },
       label: {
         show: false,
-        distanceToLabelLine: 30,
-      },
-      emphasis: {
-        label: {
-          show: true,
-          fontSize: 20,
-          fontWeight: "bold"
-        }
       },
       labelLine: {
         show: false
