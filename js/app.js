@@ -17,10 +17,69 @@ const btnAddTicket = document.querySelector("#btnAddTicket");
 
 const searchListTag = objItem => `<li class="searchList-result-card"><div class="searchList-result-wrap"><img src="${objItem["imgUrl"]}"><span class="searchList-result-wrap-loc">${objItem["area"]}</span><span class="searchList-result-wrap-rates">${objItem["rate"]}</span></div><div class="searchList-result-content"><div class="searchList-result-content-text"><h3><a href="#">${objItem["name"]}</a></h3><p>${objItem["description"]}</p></div><div class="searchList-result-content-info"><div class="searchList-result-content-info-stock"><p><i class="fa-solid fa-circle-exclamation" style="color: #00807E; margin-right: 6px;"></i><span>剩下最後 ${objItem["group"]} 組</span></p></div><div class="searchList-result-content-info-price"><p>TWD</p><span>$${objItem["price"]}</span></div></div></div></li>`;
 
+//EChart Part
+const searchListChartDOM = document.querySelector(".searchList-chart");
+const searchListChart = echarts.init(searchListChartDOM);
+const searchListChartOption = {
+  title: {
+    show: true,
+    text: "套票地區比重",
+    top: "center",
+    left: "center",
+    textStyle: {
+      color: "#4B4B4B",
+    }
+  },
+  tooltip: {
+    trigger: "item",
+  },
+  legend: {
+    bottom: "2%",
+    left: "center",
+    textStyle: {
+      color: "#6E6E6E",
+      fontSize : 14,
+      fontFamily: "Noto Sans",
+    }
+  },
+  series: [
+    {
+      type: "pie",
+      color: [
+          "#26C0C7",
+          "#5151D3",
+          "#E68618"
+      ],
+      radius: ["70%", "55%"],
+      avoidLabelOverlap: true,
+      itemStyle: {
+        borderRadius: 5,
+        borderColor: "#fff",
+        borderWidth: 2
+      },
+      label: {
+        show: false,
+        distanceToLabelLine: 30,
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 20,
+          fontWeight: "bold"
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: []
+    }
+  ]
+};
+
 init();
 
 function init() {
-  axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
+  axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json")
   .then(res => {
     localData = res["data"]["data"];
     renderList();
@@ -39,6 +98,7 @@ function init() {
         "price": 0,
         "rate": 0
       },]
+      searchListChart.showLoading();
       renderList();
       renderChart();
   })
@@ -54,6 +114,8 @@ function renderList() {
 }
 
 function renderChart() {
+  // C3 Part
+/*
   let tempObj = {};
 
   localData.forEach(item => {
@@ -72,8 +134,8 @@ function renderChart() {
   let tempData = Object.keys(tempObj);
   console.log(tempData)
 
-  let newAry = [];
 
+  let newAry = [];
   tempData.forEach(item => {
     let tempAry = [];
     tempAry.push(item);
@@ -84,10 +146,10 @@ function renderChart() {
   console.log(newAry);
 
   const chart = c3.generate({
-    bindto: '.searchList-chart',
+    bindto: ".searchList-chart",
     data: {
-        mimeType: 'json',
-        type : 'donut',
+        mimeType: "json",
+        type : "donut",
         columns: newAry,
         colors: {
           "台北": "#26C0C7",
@@ -101,10 +163,30 @@ function renderChart() {
         show: false,
       },
       width: 24,
-      title: '套票地區比重',
+      title: "套票地區比重",
     }
   });
+*/
 
+// EChart Part
+const newAry = [];
+localData.forEach(item => {
+    const area = item["area"];
+
+    //尋找相符在陣列中的Index,沒有找到則回傳-1
+    const existingAryIndex = newAry.findIndex(item => item.name === area);
+
+    if(existingAryIndex == -1) {
+      newAry.push({value: 1, name: area});
+    } else {
+      newAry[existingAryIndex].value += 1;
+    }
+  })
+
+  console.log(newAry);
+
+  searchListChartOption.series[0].data = newAry; // input Data
+  searchListChart.setOption(searchListChartOption); //Render EChart
 }
 
 function isEmpty(item) {
@@ -179,80 +261,4 @@ searchList.addEventListener("change", (e) => {
   })
   ticketCards.innerHTML = content;
   searchResultCount.innerText = totalCount;
-})
-
-
-
-const chartDom = document.querySelector(".main");
-const myChart = echarts.init(chartDom, null, { renderer: 'canvas' });
-const option = {
-  tooltip: {
-    trigger: 'item'
-  },
-  legend: {
-    top: '5%',
-    left: 'center'
-  },
-  series: [
-    {
-      name: 'Access From',
-      type: 'pie',
-      color: [
-          '#feca57',
-          '#ff6b6b',
-          '#48dbfb',
-          '#1dd1a1',
-          '#5f27cd',
-          '#576574'
-      ],
-      radius: ['45%', '70%'],
-      avoidLabelOverlap: true,
-      label: {
-        show: true,
-        position: 'center',
-        fontSize: 24,
-        fontWeight: 'bold'
-      },
-      emphasis: {
-        label: {
-          show: false,
-          fontSize: 40,
-          fontWeight: 'bold'
-        }
-      },
-      labelLine: {
-        show: false
-      },
-      data: [
-        { value: 1048, name: 'Search Engine' },
-        { value: 735, name: 'Direct' },
-        { value: 580, name: 'Email' },
-        { value: 484, name: 'Union Ads' },
-        { value: 300, name: 'Video Ads' }
-      ]
-    }
-  ]
-};
-
-
-const testData = [{name: "小明", age: 25}, {name:"小王", age:30}, {name:"小李", age:40}, {name:"小陳", age:15}]
-let newArr = [];
-
-function getData(array) {
-
-  testData.forEach((item) => {
-    let obj = {};
-    obj.value = item.age;
-    obj.name = item.name;
-    newArr.push(obj);
-  });
-
-}
-
-getData(testData);
-
-option.series[0].data = newArr;
-
-myChart.setOption(option);
-// myChart.showLoading();
-console.log(option.series[0].data);
+});
